@@ -45,11 +45,11 @@ func (s *Server) HandleInfoRequest(w *Response, r *http.Request) *InfoRequest {
 		return nil
 	}
 	if ret.AccessData.Client == nil {
-		w.SetError(E_UNAUTHORIZED_CLIENT, "")
+		w.SetError(E_UNAUTHORIZED_CLIENT+"func info HandleInfoRequest ret.AccessData.Client == nil", "")
 		return nil
 	}
 	if ret.AccessData.Client.GetRedirectUri() == "" {
-		w.SetError(E_UNAUTHORIZED_CLIENT, "")
+		w.SetError(E_UNAUTHORIZED_CLIENT+"func info HandleInfoRequest ret.AccessData.Client.GetRedirectUri", "")
 		return nil
 	}
 	if ret.AccessData.IsExpiredAt(s.Now()) {

@@ -130,11 +130,11 @@ func (s *Server) HandleAuthorizeRequest(w *Response, r *http.Request) *Authorize
 		return nil
 	}
 	if ret.Client == nil {
-		w.SetErrorState(E_UNAUTHORIZED_CLIENT, "", ret.State)
+		w.SetErrorState(E_UNAUTHORIZED_CLIENT+"func authorize HandleAuthorizeRequest ret.Client == nil", "", ret.State)
 		return nil
 	}
 	if ret.Client.GetRedirectUri() == "" {
-		w.SetErrorState(E_UNAUTHORIZED_CLIENT, "", ret.State)
+		w.SetErrorState(E_UNAUTHORIZED_CLIENT+"func authorize HandleAuthorizeRequest ret.Client.GetRedirectUri", "", ret.State)
 		return nil
 	}
 

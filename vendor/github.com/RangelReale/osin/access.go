@@ -190,15 +190,15 @@ func (s *Server) handleAuthorizationCodeRequest(w *Response, r *http.Request) *A
 		return nil
 	}
 	if ret.AuthorizeData == nil {
-		w.SetError(E_UNAUTHORIZED_CLIENT, "")
+		w.SetError(E_UNAUTHORIZED_CLIENT+"func handleAuthorizationCodeRequest ret.AuthorizeData == nil", "")
 		return nil
 	}
 	if ret.AuthorizeData.Client == nil {
-		w.SetError(E_UNAUTHORIZED_CLIENT, "")
+		w.SetError(E_UNAUTHORIZED_CLIENT+"func handleAuthorizationCodeRequest ret.AuthorizeData.Client == nil", "")
 		return nil
 	}
 	if ret.AuthorizeData.Client.GetRedirectUri() == "" {
-		w.SetError(E_UNAUTHORIZED_CLIENT, "")
+		w.SetError(E_UNAUTHORIZED_CLIENT+"func handleAuthorizationCodeRequest ret.AuthorizeData.Client.GetRedirectUri", "")
 		return nil
 	}
 	if ret.AuthorizeData.IsExpiredAt(s.Now()) {
@@ -323,15 +323,15 @@ func (s *Server) handleRefreshTokenRequest(w *Response, r *http.Request) *Access
 		return nil
 	}
 	if ret.AccessData == nil {
-		w.SetError(E_UNAUTHORIZED_CLIENT, "")
+		w.SetError(E_UNAUTHORIZED_CLIENT+"func handleRefreshTokenRequest ret.AccessData == nil", "")
 		return nil
 	}
 	if ret.AccessData.Client == nil {
-		w.SetError(E_UNAUTHORIZED_CLIENT, "")
+		w.SetError(E_UNAUTHORIZED_CLIENT+"func handleRefreshTokenRequest ret.AccessData.Client == nil", "")
 		return nil
 	}
 	if ret.AccessData.Client.GetRedirectUri() == "" {
-		w.SetError(E_UNAUTHORIZED_CLIENT, "")
+		w.SetError(E_UNAUTHORIZED_CLIENT+"func handleRefreshTokenRequest ret.AccessData.Client.GetRedirectUri", "")
 		return nil
 	}
 
@@ -541,17 +541,17 @@ func getClient(auth *BasicAuth, storage Storage, w *Response) Client {
 		return nil
 	}
 	if client == nil {
-		w.SetError(E_UNAUTHORIZED_CLIENT, "")
+		w.SetError(E_UNAUTHORIZED_CLIENT+"func getClient client == nil", "")
 		return nil
 	}
 
 	if !CheckClientSecret(client, auth.Password) {
-		w.SetError(E_UNAUTHORIZED_CLIENT, "")
+		w.SetError(E_UNAUTHORIZED_CLIENT+"func getClient auth.Password "+auth.Password, "")
 		return nil
 	}
 
 	if client.GetRedirectUri() == "" {
-		w.SetError(E_UNAUTHORIZED_CLIENT, "")
+		w.SetError(E_UNAUTHORIZED_CLIENT+"func getClient GetRedirectUri", "")
 		return nil
 	}
 	return client
